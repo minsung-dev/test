@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# 환경 변수를 확인하여 올바른 docker-compose 파일을 선택합니다.
+case "$DEPLOY_ENV" in
+  "DEV")
+    DOCKER_COMPOSE_FILE="docker-compose.dev.yml"
+    ;;
+  "PROD")
+    DOCKER_COMPOSE_FILE="docker-compose.prod.yml"
+    ;;
+  *)
+    echo "Unknown DEPLOY_ENV: $DEPLOY_ENV"
+    exit 1
+    ;;
+esac
+
+
+cd /var/www/test
+docker load -i test.tar
+docker-compose -f docker/$DOCKER_COMPOSE_FILE up -d

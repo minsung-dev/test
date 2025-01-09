@@ -1,0 +1,26 @@
+# 로컬 디버깅환경에서 사용되는 컴포즈 설정
+# Based on docker-compose.local.yml
+version: '3.8'
+
+services:
+  test:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        # nodemon 설치 안 함
+        INSTALL_NODEMON: "false"
+    ports:
+      - "${SERVICE_PORT}:3000"
+      # 디버깅 포트, docker/.env에 정의되어 있음
+      - "${DEBUG_PORT}:${DEBUG_PORT}"
+    volumes:
+      - ..:/app
+      - /app/node_modules
+      - /app/public/node_modules
+    environment:
+      - NODE_RUN_LEVEL=LOCAL
+      # npm run debug 명령어에서 참고할 디버깅 포트를 컨테이너 환경변수로 설정
+      - DEBUG_PORT=${DEBUG_PORT}
+    # 디버깅 모드로 node.js 실행
+    command: [ "npm", "run", "debug" ]

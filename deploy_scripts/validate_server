@@ -1,0 +1,28 @@
+#!/bin/bash
+
+sleep 5 # 도커 실행시간 대기
+
+case "$DEPLOY_ENV" in
+  "DEV")
+    targetUrl="http://localhost:3000/login"
+    ;;
+  "PROD")
+    targetUrl="http://localhost/login"
+    ;;
+  *)
+    echo "Unknown DEPLOY_ENV: $DEPLOY_ENV"
+    exit 1
+    ;;
+esac
+
+
+result=$(curl -s -o /dev/null -w "%{http_code}" $targetUrl)
+
+echo Check $targetUrl
+echo $result
+
+if [[ "$result" -eq "200" ]]; then
+  exit 0
+else
+  exit 1
+fi

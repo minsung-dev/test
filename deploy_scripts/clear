@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source /etc/bash.bashrc
+rm -rf /var/www/test/*

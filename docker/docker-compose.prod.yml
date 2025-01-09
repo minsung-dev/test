@@ -1,0 +1,20 @@
+# 운영 서버에서 사용되는 컴포즈 설정
+# Based on docker-compose.dev.yml
+version: '3.8'
+
+services:
+  node-server:
+    image: ${PROJECT_NAME}
+    # 시스템 재부팅 시에도 자동으로 컨테이너가 올라가도록 하는 설정
+    restart: unless-stopped
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        INSTALL_NODEMON: "false"
+    ports:
+      - "3000:3000"
+    environment:
+      # 운영환경 모드로 실행
+      - NODE_RUN_LEVEL=PROD
+    command: [ "npm", "start" ]

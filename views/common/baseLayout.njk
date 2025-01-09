@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  {# SEO #}
+
+  {# OG #}
+
+  {# Favicon #}
+
+
+  {# Naver 웹마스터 도구 #}
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="/js/lib/fontawesome-free-6.4.2-web/css/all.min.css">
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+  {% block dependencyCss %}
+  {% endblock %}
+
+  <!-- service -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  {% block pageCss %}
+  {% endblock %}
+
+</head>
+
+
+<body>
+
+{% block body %}
+{% endblock %}
+
+<!-- jQuery -->
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/jquery.cookie/jquery.cookie.js"></script>
+<!-- Separate Popper and Bootstrap JS -->
+<script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/node_modules/block-ui/jquery.blockUI.js"></script>
+<script src="/js/lib/fontawesome-free-6.4.2-web/js/all.min.js"></script>
+
+{% block dependencyJs %}
+{% endblock %}
+
+<!-- service -->
+<script src="/js/common-justbuild.js" data-api-base="{{ global.apiBase }}"></script>
+
+{% block pageJs %}
+{% endblock %}
+
+</body>
+</html>

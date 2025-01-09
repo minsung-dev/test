@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# ApplicationStop 단계의 스크립트는 이전 버전의 스크립트를 사용하므로
+# 아래 스크립트는 정확히 다음 배포단계에 적용됨
+
+# 환경 변수를 확인하여 올바른 docker-compose 파일을 선택합니다.
+case "$DEPLOY_ENV" in
+  "DEV")
+    DOCKER_COMPOSE_FILE="docker-compose.dev.yml"
+    ;;
+  "PROD")
+    DOCKER_COMPOSE_FILE="docker-compose.prod.yml"
+    ;;
+  *)
+    echo "Unknown DEPLOY_ENV: $DEPLOY_ENV"
+    exit 1
+    ;;
+esac
+
+# 이전 컨테이너를 중지하고 삭제합니다.
+cd /var/www/test
+docker-compose -f docker/$DOCKER_COMPOSE_FILE down --rmi local
+
+# 중단여부와 상관없이 성공 flag 반환
+exit 0

@@ -1,0 +1,46 @@
+{% extends './baseLayout.njk' %}
+
+{% block body %}
+  <div class="wrap">
+    <header>
+      <div class="container">
+        <h1>
+          <a href="/"><img src="/img/logo.svg" alt=""></a>
+        </h1>
+      </div>
+    </header>
+
+{#    <!-- gnb -->#}
+{#    <div class="gnb">#}
+{#      <div class="container-fluid">#}
+{#        <button class="toggle">#}
+{#          <span class="bar1"></span>#}
+{#          <span class="bar2"></span>#}
+{#          <span class="bar3"></span>#}
+{#        </button>#}
+{#        <h1><a href="/"><img src="/img/logo_typo.svg"></a></h1>#}
+{#        <div class="user">#}
+{#          <!-- 로그인 이후 -->#}
+{#          <!-- <a href="#" class="">내 의뢰</a> -->#}
+{#          <a href="#" class="noMb gnb-logout">로그아웃</a>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div><!-- /.gnb -->#}
+
+
+{#    <div class="asideMenu">#}
+{#      <div class="menu">#}
+{#        <a href="/my/order-history">마이페이지</a>#}
+{#      </div>#}
+{#    </div><!-- /.asideMenu -->#}
+
+
+    {% block page %}
+    {% endblock %}
+
+
+    {% include './footer.njk' %}
+
+
+  </div><!-- /.wrap -->
+{% endblock %}

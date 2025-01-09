@@ -1,0 +1,39 @@
+# 로컬 개발환경에서 사용되는 컴포즈 설정
+# 도커 컴포즈 버전, 고정값
+version: '3.8'
+
+# 단일 서비스 환경
+services:
+  # 서비스명 지정
+  test:
+    # 이미지 빌드시 사용되는 설정값
+    build:
+      # Dockerfile이 docker 폴더 아래에 있으므로 실행경로를 보정해줘야 함
+      # Dockerfile은 프로젝트 루트에서 실행되어야 하므로 context를 상위 디렉토리로 지정
+      context: ..
+      # context 기준 Dockerfile 경로 지정
+      dockerfile: docker/Dockerfile
+      # Dockerfile로 전달할 환경변수
+      args:
+        # nodemon 설치여부는 실행환경마다 다르므로 컴포즈 파일에서 지정
+        INSTALL_NODEMON: "true"
+    # 컨테이너 외부포트:내부포트 매핑
+    ports:
+      # 서비스 기본포트, docker/.env에 정의되어 있음
+      - "${SERVICE_PORT}:3000"
+    # 프로젝트 소스코드의 수정사항이 컨테이너 내부에 바로 반영될 수 있도록 볼륨 마운트
+    volumes:
+      # 컴포즈 파일 기준 상위폴더(프로젝트 루트)를 컨테이너 내 /app 폴더와 마운트
+      - ..:/app
+      # 의존성 폴더는 마운트 해제
+      - /app/node_modules
+      - /app/public/node_modules
+    # 도커 컨테이너에 설정되는 환경변수
+    environment:
+      # node.js 소스코드에서 실행환경을 구분하기 위한 환경변수 설정
+      - NODE_RUN_LEVEL=LOCAL
+    # 도커 컨테이너 실행완료 후 마지막으로 실행될 명령어
+    # 세부 명령어는 package.json에 정의하고 npm run을 실행하도록 설정
+    # (컨테이너 재시작시 Recreate 속도가 빠름)
+    # 소스코드 파일의 수정내역이 바로 프로세스에 반영될 수 있도록 nodemon 사용
+    command: [ "npm", "run", "nodemon" ]

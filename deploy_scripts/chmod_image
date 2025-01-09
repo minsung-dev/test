@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /var/www/test
+sudo chmod 755 test.tar

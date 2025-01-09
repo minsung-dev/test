@@ -1,0 +1,7 @@
+{% extends './baseLayout.njk' %}
+
+{% block body %}
+  <h1>{{ message }}</h1>
+  <h2>{{ err.status }}</h2>
+  <pre>{{ err.stack }}</pre>
+{% endblock %}

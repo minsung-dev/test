@@ -1,0 +1,26 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/test
+hooks:
+  ApplicationStop:
+    - location: deploy_scripts/docker_down
+      timeout: 30
+      runas: ubuntu
+  BeforeInstall:
+    - location: deploy_scripts/clear
+      timeout: 30
+      runas: root
+  AfterInstall:
+    - location: deploy_scripts/chmod_image
+      timeout: 5
+      runas: ubuntu
+  ApplicationStart:
+    - location: deploy_scripts/docker_up
+      timeout: 1800
+      runas: ubuntu
+  ValidateService:
+    - location: deploy_scripts/validate_server
+      timeout: 60
+      runas: ubuntu
